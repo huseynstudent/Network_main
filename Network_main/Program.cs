@@ -8,6 +8,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        var log = new Log();
         bool letIn = false;
         bool exited = false;
         while (!letIn)
@@ -17,10 +18,10 @@ internal class Program
             switch (choice)
             {
                 case "1":
-                    letIn = Log.SignIn();
+                    letIn = log.SignIn();
                     break;
                 case "2":
-                    Log.SignUp();
+                    log.SignUp();
                     letIn = true;
                     break;
                 case "3":
@@ -33,7 +34,7 @@ internal class Program
             if (exited) break;
         }
         ////
-        var ip = IPAddress.Parse("127.0.0.1");
+        var ip = IPAddress.Parse("192.168.0.194");
         var receiverport = 45679;
         var senderport = 45678;
         ////

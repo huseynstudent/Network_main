@@ -3,6 +3,10 @@ using Network_main.User;
 public class Log
 {
     Context _context;
+    public Log()
+    {
+        _context = new Context();
+    }
     public bool SignIn()
     {
         List<User> Users = _context.Users.ToList();
