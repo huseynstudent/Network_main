@@ -33,22 +33,25 @@ internal class Program
             }
             if (exited) break;
         }
-        ////
-        var ip = IPAddress.Parse("192.168.0.194");
-        var receiverport = 45679;
-        var senderport = 45678;
-        ////
         var server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-        var remoteEP = new IPEndPoint(ip, receiverport);
-        server.Bind(remoteEP);
+        //var remoteEP = new IPEndPoint(ip, receiverport);
+        //server.Bind(remoteEP);
+        //server.SendTo(Encoding.UTF8.GetBytes("client connected"), remoteEP);
+        var ip = IPAddress.Parse("127.0.0.1");
+        var serverPort = 45678;
+        server.Bind(new IPEndPoint(IPAddress.Loopback, 0));
+        var remoteEP = new IPEndPoint(ip, serverPort);
         server.SendTo(Encoding.UTF8.GetBytes("client connected"), remoteEP);
         while (!exited)
         {
             var msg = Console.ReadLine() ?? string.Empty;
             if (msg == "" || msg.ToLower() == "exit")
                 exited = true;
-            var data = Encoding.UTF8.GetBytes(msg);
-            server.SendTo(data, remoteEP);
+            else
+            {
+                var data = Encoding.UTF8.GetBytes(msg);
+                server.SendTo(data, remoteEP);
+            }
         }
     }
 }
